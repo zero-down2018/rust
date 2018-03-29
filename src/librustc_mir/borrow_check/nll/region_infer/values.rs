@@ -376,6 +376,7 @@ impl RegionValues {
             sep = ", ";
         };
 
+        let mut counter = 0;
         for element in self.elements_contained_in(r) {
             match element {
                 RegionElement::Location(l) => {
@@ -405,6 +406,8 @@ impl RegionValues {
                     result.push_str(&format!("{:?}", fr));
                 }
             }
+
+            counter += 1;
         }
 
         if let Some((location1, location2)) = open_location {
@@ -414,7 +417,7 @@ impl RegionValues {
 
         result.push_str("}");
 
-        result
+        format!("{} elements / {}", counter, result)
     }
 
     fn push_location_range(str: &mut String, location1: Location, location2: Location) {
